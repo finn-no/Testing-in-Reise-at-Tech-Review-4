@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>testing-in-reise</title>
+
+    <meta name="description" content="Presentation on how FINN Reise does testing held at FINN Tech Review #4 2016.06.09">
+    <meta name="author" content="Stig Kleppe-Jørgensen">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/simple.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="css/highlight/styles/zenburn.css" id="highlight-theme">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!-- INCLUDE CSS HERE -->
+
+  </head>
+
+  <body>
+
+    <div class="reveal">
+      <div class="slides"><section id="testing-at-reise" class="slide" data-has-notes="true">
+<h1>Testing @ FINN Reise</h1><h4>Solfrid Wathne &amp; Stig Kleppe-Jørgensen</h4><h4>2016.06.09</h4>
+</section>
+
+<section id="why-1" class="slide" data-has-notes="true">
+<h1>Why</h1><h2>or, what&#39;s in it for me?</h2><aside class="notes"><p>Hva får en ved å teste slik vi gjør i Reise?</p></aside>
+</section>
+
+<section id="why-2" class="slide" data-has-notes="false">
+<h1>Why</h1><h3>Unstable test environments, you say?</h3><h3>Never heard of&#39;em</h3>
+</section>
+
+<section id="why-3" class="slide" data-has-notes="true">
+<h1>Why</h1><ul>
+<li>Code gets deployed to production faster</li>
+<li>No waiting on pull requests</li>
+<li>Safe to do large changes<ul>
+<li>If tests go green everything works</li>
+</ul>
+</li>
+</ul><aside class="notes"><ul>
+<li>Push directly to master</li>
+<li>Auto verify in pipeline</li>
+</ul></aside>
+</section>
+
+<section id="how-1" class="slide" data-has-notes="true">
+<h1>How?</h1><h2>or, TDD FTW</h2><aside class="notes"><p>Den viktigste grunnen til at vi kan gjøre dette, er at vi kjørte TDD hele veien. Skulle det lages en ny feature, lagde vi ende-til-ende-testen først før vi skrev noe funksjonell kode.</p></aside>
+</section>
+
+<section id="how-2" class="slide" data-has-notes="true">
+<h1>How?</h1><h3>EVERYTHING is tested</h3><h3>The build runs EVERYTHING</h3><h3>NO manual testing</h3><aside class="notes"><p>Vi tester alt, bygget kjører alle tester og vi har ikke noe manuell testing.</p></aside>
+</section>
+
+<section id="how-3" class="slide" data-has-notes="true">
+<h1>How?</h1><h3>Multiple levels, or strategies, of tests</h3><p>Martin Fowler&#39;s test pyramid:</p>
+<image src="images/test-pyramid.svg" style="background:none; border:none; box-shadow:none;"/><aside class="notes"><p>For å få en så høy test-dekning som mulig, har vi tester på forskjellige nivåer. Som vist i test-pyramiden her, hentet fra Martin Fowler,
+blir det færre tester jo lenger opp en kommer. Grunnen til dette er at jo lenger opp en kommer, jo lenger tar testene å kjøre i tillegg til at de blir mer ustabile.</p></aside>
+</section>
+
+<section id="how-4" class="slide" data-has-notes="true">
+<h1>How?</h1><h3>Multiple levels, or strategies, of tests</h3><p>FINN Reise&#39;s test pyramid:</p>
+<image src="images/test-pyramid-reise.svg" style="background:none; border:none; box-shadow:none;"/><aside class="notes"><p>Vi har litt andre navn på våre test-nivåer, feature i stedetfor end-to-end, module i stedetfor component. Våre unit tester er for det meste det samme, men vi har også noen på unit test-nivå som kan klassifiseres som integration-tester.</p></aside>
+</section>
+
+<section id="feature-tests" class="slide" data-has-notes="true">
+<h1>Feature tests</h1><ul>
+<li>End-2-end testing</li>
+<li>Starts the whole vertical<ul>
+<li>web, api, integration, solr, etc.</li>
+</ul>
+</li>
+<li>The tests emulate a user</li>
+<li>Mocks out external services<ul>
+<li>Expedia, SAS, Star Tour, Ving, etc.</li>
+</ul>
+</li>
+</ul><aside class="notes"><ul>
+<li>fill out fields<ul>
+<li>click links</li>
+<li>check page elements</li>
+</ul>
+</li>
+</ul></aside>
+</section>
+
+<section id="module-tests" class="slide" data-has-notes="true">
+<h1>Module tests</h1><ul>
+<li>Starts only 1 module<ul>
+<li>web or api or...</li>
+</ul>
+</li>
+<li>2 ways of testing<ul>
+<li>web modules --&gt; emulate a user</li>
+<li>other modules --&gt; call the API</li>
+</ul>
+</li>
+<li>Mocks out<ul>
+<li>other modules</li>
+<li>external services</li>
+</ul>
+</li>
+</ul>
+</section>
+
+<section id="work-with-us" class="slide" data-has-notes="true">
+<h2>Come work with us!</h2><aside class="notes"><p>Hvis det nå er noen som vil lære mer om hvordan vi gjør testing, er det bare å spørre nærmere sjef om å få lov til å hospitere hos oss!</p></aside>
+</section></div>
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+
+    <script>
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+
+      transition: Reveal.getQueryHash().transition || 'slide', // none/fade/slide/convex/concave/zoom
+
+      // Optional reveal.js plugins
+      dependencies: [
+        //{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        //{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        //{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: 'plugin/zoom-js/zoom.js', async: true },
+        { src: 'plugin/notes/notes.js', async: true }
+      ]
+    });
+    </script>
+
+    <!-- INCLUDE JS HERE -->
+
+  </body>
+</html>

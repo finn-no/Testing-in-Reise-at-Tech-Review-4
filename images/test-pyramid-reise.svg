@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" viewBox="412 197 485 306" class="diagram" style="left: 540px;top: 170px;" height="380px" width="400px">
+  <style type="text/css">
+  /*  */
+  .label-large, .label-medium, .label-small {
+    font-family: Open Sans;
+    font-weight: 600;
+  }
+  .label-large { font-size: 24px; }
+  .label-medium { font-size: 20px; }
+  .label-small { font-size: 16px; }
+  /*  */
+</style>
+  <defs>
+    <font-face font-family="Open Sans" font-size="24" panose-1="2 11 8 6 3 5 4 2 2 4" units-per-em="1000" underline-position="-75.195312" underline-thickness="49.804688" slope="0" x-height="555.66406" cap-height="724.1211" ascent="1068.84766" descent="-292.96875" font-weight="bold">
+      <font-face-src>
+        <font-face-name name="OpenSans-Bold">
+      </font-face-name></font-face-src>
+    </font-face>
+  </defs>
+  <g stroke="none" stroke-opacity="1" stroke-dasharray="none" fill="none" fill-opacity="1">
+    <title>Microservice Testing</title>
+    <g>
+      <title>Conclusion :: Pyramid</title>
+      <path d="M 422.13046 490.43206 L 454.2418 442.84566 C 455.17104 441.46862 456.72353 440.64301 458.38477 440.64246 L 740.99356 440.5484 C 742.6579 440.54786 744.2134 441.3755 745.1429 442.7561 L 777.22224 490.40642 C 778.7644 492.6971 778.15758 495.80423 775.8669 497.34638 C 775.04177 497.90187 774.0697 498.19864 773.075 498.19873 L 426.27552 498.22886 C 423.5141 498.2291 421.27533 495.99072 421.2751 493.2293 C 421.275 492.23247 421.57288 491.25836 422.13046 490.43206 Z" fill="#91eec8" stroke="#43ae6a" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"></path>
+      <path d="M 492.3647 382.78942 L 706.57317 382.1723 C 708.24378 382.16748 709.8064 382.99735 710.738 384.3841 L 736.9547 423.40992 C 738.49454 425.70214 737.88463 428.80866 735.5924 430.34852 C 734.76774 430.90252 733.7967 431.19829 732.80323 431.19809 L 466.5426 431.14433 C 463.78118 431.14377 461.54306 428.90474 461.5436 426.14332 C 461.54381 425.1484 461.84083 424.17616 462.39666 423.35099 L 488.23215 384.99605 C 489.15854 383.62075 490.7065 382.7942 492.3647 382.78942 Z" fill="#84eaf0" stroke="#3ba2ab" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"></path>
+      <path d="M 497.87997 364.99774 L 523.72482 326.62116 C 524.65402 325.2414 526.20856 324.41412 527.87203 324.41412 L 671.85233 324.41412 C 673.5139 324.41412 675.0669 325.23953 675.99654 326.6167 L 701.53267 364.44693 C 703.07765 366.7357 702.47467 369.84358 700.1859 371.38855 C 699.36353 371.94366 698.3946 372.24155 697.40245 372.24433 L 502.04117 372.79068 C 499.27975 372.7984 497.03493 370.5661 497.0272 367.80468 C 497.0244 366.80482 497.32145 365.82708 497.87997 364.99774 Z" fill="#d084c4" stroke="#86467e" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"></path>
+      <path d="M 533.87845 307.25245 L 558.48646 270.27016 C 559.41245 268.87853 560.9726 268.04168 562.64416 268.04001 L 636.3439 267.96655 C 638.00848 267.9649 639.56473 268.79172 640.49506 270.17205 L 665.47047 307.2278 C 667.01383 309.51766 666.40866 312.62511 664.1188 314.16847 C 663.2931 314.72499 662.32003 315.0223 661.3243 315.0223 L 538.04114 315.0223 C 535.2797 315.0223 533.04114 312.78372 533.04114 310.0223 C 533.04114 309.03667 533.33244 308.07302 533.87845 307.25245 Z" fill="#f694c1" stroke="#c03b78" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"></path>
+      <path d="M 595.5905 207.91419 L 566.65968 250.77938 C 565.11486 253.06826 565.71803 256.1761 568.0069 257.72092 C 568.83316 258.27858 569.80724 258.57653 570.80407 258.57653 L 628.63402 258.57653 C 631.39545 258.57653 633.63402 256.33796 633.63402 253.57653 C 633.63402 252.58057 633.3366 251.6073 632.77983 250.78149 L 603.8807 207.9163 C 602.33704 205.62663 599.2295 205.02188 596.93985 206.56554 C 596.40768 206.92432 595.94956 207.3822 595.5905 207.91419 Z" fill="#fef9c2" stroke="#eadb4f" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"></path>
+      <text transform="translate(625 213.67343)" fill="#e7cc09" style="font-family:Open Sans;" class="label-large">
+        <tspan fill="#e7cc09" x="17.338997" y="26" textLength="140">(Exploratory)</tspan>
+      </text>
+      <text transform="translate(667.75 274.99533)" fill="#c02a6c" style="font-family:Open Sans;" class="label-large">
+        <tspan fill="#c02a6c" x="11.379057" y="26" textLength="95">Feature</tspan>
+      </text>
+      <text transform="translate(700.5 332.23084)" fill="#712465" style="font-family:Open Sans;" class="label-large">
+        <tspan fill="#712465" x="12.4390914" y="26" textLength="85">Module</tspan>
+      </text>
+      <text transform="translate(732.25 390.18229)" fill="#1a8b94" style="font-family:Open Sans;" class="label-large">
+        <tspan fill="#1a8b94" x="17.791153" y="26" textLength="130">(Integration)</tspan>
+      </text>
+      <text transform="translate(778.5 452.73084)" fill="#1a8c53" style="font-family:Open Sans;" class="label-large">
+        <tspan fill="#1a8c53" x="6.98666" y="26" textLength="51.65625">Unit</tspan>
+      </text>
+    </g>
+  </g>
+</svg>
