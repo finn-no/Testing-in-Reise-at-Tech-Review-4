@@ -29,14 +29,14 @@
       document.getElementsByTagName( 'head' )[0].appendChild( link );
     </script>
 
-    <!-- INCLUDE CSS HERE -->
+    <link rel="stylesheet" href="css/extra.css">
 
   </head>
 
   <body>
 
     <div class="reveal">
-      <div class="slides"><section id="testing-at-reise" class="slide" data-has-notes="true">
+      <div class="slides"><section id="testing-in-reise" class="slide" data-has-notes="true">
 <h1>Testing @ FINN Reise</h1><h4>Solfrid Wathne &amp; Stig Kleppe-Jørgensen</h4><h4>2016.06.09</h4>
 </section>
 
@@ -50,20 +50,21 @@
 
 <section id="why-3" class="slide" data-has-notes="true">
 <h1>Why</h1><ul>
-<li>Code gets deployed to production faster</li>
-<li>No waiting on pull requests</li>
+<li>Deploy <strong>faster</strong> &amp; <strong>safer</strong></li>
+<li>PR NG --&gt; no PRs --&gt; Code reviews after deployment</li>
+<li>Push directly to master</li>
+<li>Auto verify in pipeline</li>
 <li>Safe to do large changes<ul>
 <li>If tests go green everything works</li>
 </ul>
 </li>
-</ul><aside class="notes"><ul>
-<li>Push directly to master</li>
-<li>Auto verify in pipeline</li>
-</ul></aside>
+</ul><aside class="notes"><p>Vi kan pushe rett til master
+Vi kan ha på auto verify i pipeline
+Det er trygt å gjøre større endringer som treffer flere moduler.</p></aside>
 </section>
 
 <section id="how-1" class="slide" data-has-notes="true">
-<h1>How?</h1><h2>or, TDD FTW</h2><aside class="notes"><p>Den viktigste grunnen til at vi kan gjøre dette, er at vi kjørte TDD hele veien. Skulle det lages en ny feature, lagde vi ende-til-ende-testen først før vi skrev noe funksjonell kode.</p></aside>
+<h1>How?</h1><h2>or, TDD FTW</h2><aside class="notes"><p>Den viktigste grunnen til at vi kan gjøre dette, er at vi har kjørt TDD hele veien. Når det lages en ny feature, lager vi ende-til-ende-testen først før vi skriver noe funksjonell kode.</p></aside>
 </section>
 
 <section id="how-2" class="slide" data-has-notes="true">
@@ -72,8 +73,7 @@
 
 <section id="how-3" class="slide" data-has-notes="true">
 <h1>How?</h1><h3>Multiple levels, or strategies, of tests</h3><p>Martin Fowler&#39;s test pyramid:</p>
-<image src="images/test-pyramid.svg" style="background:none; border:none; box-shadow:none;"/><aside class="notes"><p>For å få en så høy test-dekning som mulig, har vi tester på forskjellige nivåer. Som vist i test-pyramiden her, hentet fra Martin Fowler,
-blir det færre tester jo lenger opp en kommer. Grunnen til dette er at jo lenger opp en kommer, jo lenger tar testene å kjøre i tillegg til at de blir mer ustabile.</p></aside>
+<image src="images/test-pyramid.svg" style="background:none; border:none; box-shadow:none;"/><aside class="notes"><p>For å få en så høy test-dekning som mulig, har vi tester på forskjellige nivåer. Som vist i test-pyramiden her, hentet fra Martin Fowler, blir det færre tester jo lenger opp en kommer. Grunnen til dette er at jo lenger opp en kommer, jo lenger tar testene å kjøre i tillegg til at de blir mer ustabile.</p></aside>
 </section>
 
 <section id="how-4" class="slide" data-has-notes="true">
@@ -121,6 +121,46 @@ blir det færre tester jo lenger opp en kommer. Grunnen til dette er at jo lenge
 </ul>
 </section>
 
+<section id="tools-frameworks-1" class="slide" data-has-notes="true">
+<h2>Tools &amp; frameworks</h2><ul>
+<li>Geb</li>
+<li>Spock</li>
+<li>Karma</li>
+<li>BrowserStack</li>
+<li>HTTP mocking</li>
+<li>Embedded Tomcat</li>
+</ul><aside class="notes"><p>Geb brukes til frontend testing, dvs. emulere en bruker. Vi bruker det sammen med Spock, som gir konsise og lett-leste test-kode.</p></aside>
+</section>
+
+<section id="tools-frameworks-2" class="slide" data-has-notes="true">
+<h2>Tools &amp; frameworks</h2><ul>
+<li>PMD</li>
+<li>Checkstyle</li>
+<li>FindBugs</li>
+<li>CodeNarc</li>
+<li>Jasper</li>
+<li>Gradle</li>
+</ul><aside class="notes"><p>Vi kjører også kodesjekker i bygget, og sjekker både prod og testkode med de samme reglene. Testkoden skal alltid holde like høy kvalitet som prod-koden! Vi tester også at JSPene kompilerer ok. Og sist men ikke minst, Gradle. Det hadde vært veldig tungt å skulle satt opp dette test-regimet med Maven.</p></aside>
+</section>
+
+<section id="geb-spock" class="slide" data-has-notes="true">
+<h1>Geb and Spock</h1><pre><code class="lang-groovy"><span class="hljs-keyword">def</span> <span class="hljs-string">'Enter credentials and login'</span>() {
+<span class="hljs-symbol">  given:</span>
+    at LoginPage
+    <span class="hljs-keyword">def</span> uid = System.getenv(<span class="hljs-string">'FINN_UID'</span>)
+    <span class="hljs-keyword">def</span> pwd = System.getenv(<span class="hljs-string">'FINN_PWD'</span>)
+<span class="hljs-symbol">
+  when:</span>
+    email.value(uid)
+    password.value(pwd)
+    loginWithSPiD.click()
+<span class="hljs-symbol">
+  then:</span>
+    at UserPage
+}
+</code></pre>
+</section>
+
 <section id="work-with-us" class="slide" data-has-notes="true">
 <h2>Come work with us!</h2><aside class="notes"><p>Hvis det nå er noen som vil lære mer om hvordan vi gjør testing, er det bare å spørre nærmere sjef om å få lov til å hospitere hos oss!</p></aside>
 </section></div>
@@ -151,7 +191,7 @@ blir det færre tester jo lenger opp en kommer. Grunnen til dette er at jo lenge
     });
     </script>
 
-    <!-- INCLUDE JS HERE -->
+    <script src="js/dynamic-theme.js"></script><script src="js/such-notes-print.js"></script>
 
   </body>
 </html>
