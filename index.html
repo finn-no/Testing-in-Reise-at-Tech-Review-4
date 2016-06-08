@@ -77,12 +77,11 @@ Det er trygt å gjøre større endringer som treffer flere moduler.</p></aside>
 </section>
 
 <section id="how-4" class="slide" data-has-notes="true">
-<h1>How?</h1><h3>Multiple levels, or strategies, of tests</h3><p>FINN Reise&#39;s test pyramid:</p>
-<image src="images/test-pyramid-reise.svg" style="background:none; border:none; box-shadow:none;"/><aside class="notes"><p>Vi har litt andre navn på våre test-nivåer, feature i stedetfor end-to-end, module i stedetfor component. Våre unit tester er for det meste det samme, men vi har også noen på unit test-nivå som kan klassifiseres som integration-tester.</p></aside>
+<h1>How?</h1><h3>FINN Reise&#39;s test pyramid</h3><image src="images/test-pyramid-reise.svg" style="background:none; border:none; box-shadow:none;"/><aside class="notes"><p>Vi har litt andre navn på våre test-nivåer, feature i stedet for end-to-end, module i stedet for component. Våre unit tester er for det meste det samme, men vi har også noen på unit test-nivå som kan klassifiseres som integration-tester.</p></aside>
 </section>
 
 <section id="feature-tests" class="slide" data-has-notes="true">
-<h1>Feature tests</h1><ul>
+<h2>Feature tests</h2><ul>
 <li>End-2-end testing</li>
 <li>Starts the whole vertical<ul>
 <li>web, api, integration, solr, etc.</li>
@@ -93,17 +92,11 @@ Det er trygt å gjøre større endringer som treffer flere moduler.</p></aside>
 <li>Expedia, SAS, Star Tour, Ving, etc.</li>
 </ul>
 </li>
-</ul><aside class="notes"><ul>
-<li>fill out fields<ul>
-<li>click links</li>
-<li>check page elements</li>
-</ul>
-</li>
-</ul></aside>
+</ul><aside class="notes"><p>Feature tester er ende-til-ende testing, dvs. hele applikasjonen blir startet opp, frontend, api, solr, etc. Testen kjøres mot frontend ved å emulere en bruker. Den fyller ut felt, trykker på knapper/linker og sjekker hva som ligger på siden etter at &quot;brukeren&quot; har gjort noe. Her mocker vi vekk alle eksterne tjenester som expedia, sas, star tour, ving, etc.</p></aside>
 </section>
 
 <section id="module-tests" class="slide" data-has-notes="true">
-<h1>Module tests</h1><ul>
+<h2>Module tests</h2><ul>
 <li>Starts only 1 module<ul>
 <li>web or api or...</li>
 </ul>
@@ -118,18 +111,23 @@ Det er trygt å gjøre større endringer som treffer flere moduler.</p></aside>
 <li>external services</li>
 </ul>
 </li>
-</ul>
+</ul><aside class="notes"><p>Modultester kjører bare opp en modul, f.eks. frontend eller api-artifaktet. Hvis det er en frontend modul emuleres en bruker på samme måte som for feature testene fra forrige slide. Ellers testes modulen gjennom APIet den eksponerer. Her mocker vi ut andre moduler og eksterne tjenester slik at vi kan konsentrere oss om hva modulen gjør og ikke hvordan andre moduler/eksterne tjenester oppfører seg.</p></aside>
 </section>
 
 <section id="tools-frameworks-1" class="slide" data-has-notes="true">
 <h2>Tools &amp; frameworks</h2><ul>
-<li>Geb</li>
 <li>Spock</li>
+<li>Geb</li>
 <li>Karma</li>
 <li>BrowserStack</li>
-<li>HTTP mocking</li>
 <li>Embedded Tomcat</li>
-</ul><aside class="notes"><p>Geb brukes til frontend testing, dvs. emulere en bruker. Vi bruker det sammen med Spock, som gir konsise og lett-leste test-kode.</p></aside>
+<li>HTTP mocking</li>
+<li>Thrift stubbing</li>
+</ul><aside class="notes"><p>Vi bruker en del verktøy og rammeverk for å gjøre testingen enklere.</p>
+<p>Spock er et test rammeverk som vi bruker på unit, modul og feature-testene. Det er noe som alle burde begynne å bruke med en gang, dvs. bytte ut JUnit. Det gjør testene mye mer konsise og lett-leste.</p>
+<p>Geb brukes til frontend testing som en driver for WebDriver, dvs. det er et alternativ til Cucumber. Det blir brukt som et slags påbygg til Spock, som gjør det mulig å bruke mange av de kjekke mulighetene Spock gir ved frontend testing. Karma brukes til testing av javascript, hvor vi i tillegg til å kjøre det lokalt med PhantomJS kjører det i skyen på BrowserStack for å teste andre nettlesere.</p>
+<p>Vi har laget en liten test utility som kan starte opp Tomcat før testene kjører, aka embedded tomcat. Slik blir det enkelt å kjøre modul-tester fra IntelliJ.</p>
+<p>Alle modulene våre snakker over http med hverandre, så det er forholdsvis enkelt å mocke vekk modul-avhengigheter ved å kjøre opp en mock http server i testene. Vi har et par thrift-tjenester vi bruker, bl.a. Broadcast, så vi fikk fikset denne slik at den passet inn i test-oppsettet vårt.</p></aside>
 </section>
 
 <section id="tools-frameworks-2" class="slide" data-has-notes="true">
@@ -140,11 +138,11 @@ Det er trygt å gjøre større endringer som treffer flere moduler.</p></aside>
 <li>CodeNarc</li>
 <li>Jasper</li>
 <li>Gradle</li>
-</ul><aside class="notes"><p>Vi kjører også kodesjekker i bygget, og sjekker både prod og testkode med de samme reglene. Testkoden skal alltid holde like høy kvalitet som prod-koden! Vi tester også at JSPene kompilerer ok. Og sist men ikke minst, Gradle. Det hadde vært veldig tungt å skulle satt opp dette test-regimet med Maven.</p></aside>
+</ul><aside class="notes"><p>Vi kjører også kodesjekker i bygget, og sjekker både prod og testkode med de samme reglene. Testkoden skal alltid holde like høy kvalitet som prod-koden! Vi tester også at JSPene kompilerer ok. Jeg har nevnt gradle her fordi den gjør det veldig mye enklere å jobbe med de 3 test-nivåene vi har.</p></aside>
 </section>
 
 <section id="geb-spock" class="slide" data-has-notes="true">
-<h1>Geb and Spock</h1><pre><code class="lang-groovy"><span class="hljs-keyword">def</span> <span class="hljs-string">'Enter credentials and login'</span>() {
+<h2>Geb and Spock</h2><pre><code class="lang-groovy"><span class="hljs-keyword">def</span> <span class="hljs-string">'Enter credentials and login'</span>() {
 <span class="hljs-symbol">  given:</span>
     at LoginPage
     <span class="hljs-keyword">def</span> uid = System.getenv(<span class="hljs-string">'FINN_UID'</span>)
@@ -158,11 +156,69 @@ Det er trygt å gjøre større endringer som treffer flere moduler.</p></aside>
   then:</span>
     at UserPage
 }
-</code></pre>
+</code></pre><aside class="notes"><p>Her er et eksempel på en Geb test skrevet i Spock. Den sjekker at browseren er på login-siden og setter uid/pwd fra env.vars. Deretter fyller den inn uid/pwd i formen på login-siden, for så å trykke på login-knappen. Så sjekker den at man kommer profil-siden.</p></aside>
+</section>
+
+<section id="embedded-tomcat" class="slide" data-has-notes="true">
+<h2>Embedded Tomcat</h2><pre><code class="lang-groovy"><span class="hljs-meta">@Shared</span>
+<span class="hljs-keyword">def</span> EmbeddedTomcat tomcat = <span class="hljs-keyword">new</span> EmbeddedTomcat()
+
+<span class="hljs-meta">@Shared</span>
+<span class="hljs-keyword">def</span> client
+
+<span class="hljs-keyword">def</span> setupSpec() {
+  System.setProperty(<span class="hljs-string">"travel-flight-api.port"</span>, &lt;random port&gt;)
+  tomcat.start()
+  client = <span class="hljs-keyword">new</span> RESTClient(<span class="hljs-string">"http://localhost:${tomcat.port}"</span>)
+}
+
+<span class="hljs-keyword">def</span> cleanupSpec() {
+  tomcat.stop()
+  System.clearProperty(<span class="hljs-string">"travel-flight-api.port"</span>)
+}
+</code></pre><aside class="notes"><p>Her er et eksempel på bruk av test utilitien for å kjøre opp Tomcat i en Spock test og stoppe den når testen er ferdig.</p></aside>
+</section>
+
+<section id="http-mocking" class="slide" data-has-notes="true">
+<h2>HTTP mocking</h2><pre><code class="lang-groovy"><span class="hljs-keyword">def</span> setupMockForCurrencyRates(String responseFromApi) {
+
+  clientDriver.addExpectation(
+
+    onRequestTo(<span class="hljs-string">"/reise/valuta/"</span>).
+      withMethod(GET).
+      withAnyParams(),
+
+    giveResponse(responseFromApi, JSON).
+      after(<span class="hljs-number">0</span>, TimeUnit.SECONDS).
+      withStatus(OK.statusCode)
+  )
+}
+</code></pre><aside class="notes"><p>Vi bruker nå en rammeverk som heter ClientDriver for mocking av http-tjenester, i dette eksempelet mocker vi ut api-kallene for uthenting av valuta-kurser.</p></aside>
+</section>
+
+<section id="thrift-stubbing" class="slide" data-has-notes="true">
+<h2>Thrift stubbing</h2><pre><code class="lang-groovy"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BroadcastTestServer</span> {</span>
+  <span class="hljs-keyword">public</span> BroadcastTestServer() {
+    broadcastServer = <span class="hljs-keyword">new</span> BroadcastServer(
+      <span class="hljs-keyword">new</span> BroadcastServiceHandler(<span class="hljs-keyword">new</span> BroadcastMessageDaoStub()));
+    <span class="hljs-keyword">int</span> port = findFreePort();
+    broadcastServer.setPort(port);
+  }
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> start() {
+    copyIniFileToTmpDir();
+    broadcastServer.start();
+  }
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> stop() {
+    deleteTempIniFileIfExists();
+    broadcastServer.stop();
+  }
+</code></pre><aside class="notes"><p>Dette er en test utility for å stubbe ut kall til broadcast-serveren. Dvs. at denne kjøres opp for testen ... kjøres</p></aside>
 </section>
 
 <section id="work-with-us" class="slide" data-has-notes="true">
-<h2>Come work with us!</h2><aside class="notes"><p>Hvis det nå er noen som vil lære mer om hvordan vi gjør testing, er det bare å spørre nærmere sjef om å få lov til å hospitere hos oss!</p></aside>
+<h2>Come work with us!</h2><aside class="notes"><p>Hvis det nå er noen som vil lære mer om hvordan vi gjør testing, er det bare å spørre nærmeste sjef om å få lov til å hospitere hos oss!</p></aside>
 </section></div>
     </div>
 
