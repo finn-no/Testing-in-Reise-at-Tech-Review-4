@@ -1,4 +1,4 @@
-# Feature tests
+## Feature tests
 
 * End-2-end testing
 * Starts the whole vertical
@@ -9,6 +9,4 @@
 
 Note:
 
-   * fill out fields
-   * click links
-   * check page elements
+Feature tester er ende-til-ende testing, dvs. hele applikasjonen blir startet opp, frontend, api, solr, etc. Testen kjøres mot frontend ved å emulere en bruker. Den fyller ut felt, trykker på knapper/linker og sjekker hva som ligger på siden etter at "brukeren" har gjort noe. Her mocker vi vekk alle eksterne tjenester som expedia, sas, star tour, ving, etc.

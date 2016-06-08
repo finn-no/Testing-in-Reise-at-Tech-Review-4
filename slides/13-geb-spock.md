@@ -1,4 +1,4 @@
-# Geb and Spock
+## Geb and Spock
 
 ```groovy
 def 'Enter credentials and login'() {
@@ -18,3 +18,5 @@ def 'Enter credentials and login'() {
 ```
 
 Note:
+
+Her er et eksempel på en Geb test skrevet i Spock. Den sjekker at browseren er på login-siden og setter uid/pwd fra env.vars. Deretter fyller den inn uid/pwd i formen på login-siden, for så å trykke på login-knappen. Så sjekker den at man kommer profil-siden.
