@@ -22,4 +22,4 @@ public final class BroadcastTestServer {
 
 Note:
 
-Dette er en test utility for å stubbe ut kall til broadcast-serveren. Dvs. at denne kjøres opp for testen ... kjøres
+Dette er en test utility for å stubbe ut kall til broadcast-serveren. Dvs. at denne kjøres opp før testene. I andre tester der vi ikke tester at broadcast fungerer, slår vi den av med en config-fil.

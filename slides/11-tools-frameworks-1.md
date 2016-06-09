@@ -12,9 +12,9 @@ Note:
 
 Vi bruker en del verktøy og rammeverk for å gjøre testingen enklere.
 
-Spock er et test rammeverk som vi bruker på unit, modul og feature-testene. Det er noe som alle burde begynne å bruke med en gang, dvs. bytte ut JUnit. Det gjør testene mye mer konsise og lett-leste.
+For de som ikke har brukt det, så er Spock et test rammeverk dvs et alternativ til JUnit. Anbefaler alle til å begynne å bruke det i stedet for JUnit. Det gjør testene mye mer konsise og lett-leste. Vi bruker det på unit, modul og feature-testene.
 
-Geb brukes til frontend testing som en driver for WebDriver, dvs. det er et alternativ til Cucumber. Det blir brukt som et slags påbygg til Spock, som gjør det mulig å bruke mange av de kjekke mulighetene Spock gir ved frontend testing. Karma brukes til testing av javascript, hvor vi i tillegg til å kjøre det lokalt med PhantomJS kjører det i skyen på BrowserStack for å teste andre nettlesere.
+Geb brukes til frontend testing som en driver for WebDriver, dvs. det er et alternativ til Cucumber. Det blir brukt som et slags påbygg til Spock, som gjør det mulig å bruke mange av de kjekke mulighetene Spock gir ved frontend testing. Karma brukes til testing av javascript, hvor vi i tillegg til å kjøre det lokalt med PhantomJS kjører det i skyen på BrowserStack for å teste andre nettlesere, dvs. for å sjekke at det ikke krasjer i IE.
 
 Vi har laget en liten test utility som kan starte opp Tomcat før testene kjører, aka embedded tomcat. Slik blir det enkelt å kjøre modul-tester fra IntelliJ.
 

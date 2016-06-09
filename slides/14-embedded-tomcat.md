@@ -8,14 +8,12 @@ def EmbeddedTomcat tomcat = new EmbeddedTomcat()
 def client
 
 def setupSpec() {
-  System.setProperty("travel-flight-api.port", <random port>)
   tomcat.start()
   client = new RESTClient("http://localhost:${tomcat.port}")
 }
 
 def cleanupSpec() {
   tomcat.stop()
-  System.clearProperty("travel-flight-api.port")
 }
 ```
 
