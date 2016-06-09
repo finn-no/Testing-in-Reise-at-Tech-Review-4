@@ -50,7 +50,10 @@
 
 <section id="why-3" class="slide" data-has-notes="true">
 <h1>Why</h1><ul>
-<li>Deploy <strong>faster</strong> &amp; <strong>safer</strong></li>
+<li>Deploy <strong>faster</strong> &amp; <strong>safer</strong><ul>
+<li>~60-110 deploys a day</li>
+</ul>
+</li>
 <li>PR NG --&gt; no PRs --&gt; Code reviews after deployment</li>
 <li>Push directly to master</li>
 <li>Auto verify in pipeline</li>
@@ -64,11 +67,11 @@ Det er trygt å gjøre større endringer som treffer flere moduler.</p></aside>
 </section>
 
 <section id="how-1" class="slide" data-has-notes="true">
-<h1>How?</h1><h2>or, TDD FTW</h2><aside class="notes"><p>Den viktigste grunnen til at vi kan gjøre dette, er at vi har kjørt TDD hele veien. Når det lages en ny feature, lager vi ende-til-ende-testen først før vi skriver noe funksjonell kode.</p></aside>
+<h1>How?</h1><h2>or, TDD FTW</h2><aside class="notes"><p>Den viktigste grunnen til at vi kan gjøre dette, er at vi har kjørt TDD hele veien. Når vi lager  en ny feature, lager vi ende-til-ende-testen først før vi skriver noe funksjonell kode.</p></aside>
 </section>
 
 <section id="how-2" class="slide" data-has-notes="true">
-<h1>How?</h1><h3>EVERYTHING is tested</h3><h3>The build runs EVERYTHING</h3><h3>NO manual testing</h3><aside class="notes"><p>Vi tester alt, bygget kjører alle tester og vi har ikke noe manuell testing.</p></aside>
+<h1>How?</h1><h3>EVERYTHING is tested</h3><h3>The build runs EVERYTHING</h3><h3>NO manual testing</h3><aside class="notes"><p>Vi tester alt, bygget kjører alle tester og vi har ingen manuell testing.</p></aside>
 </section>
 
 <section id="how-3" class="slide" data-has-notes="true">
@@ -124,8 +127,8 @@ Det er trygt å gjøre større endringer som treffer flere moduler.</p></aside>
 <li>HTTP mocking</li>
 <li>Thrift stubbing</li>
 </ul><aside class="notes"><p>Vi bruker en del verktøy og rammeverk for å gjøre testingen enklere.</p>
-<p>Spock er et test rammeverk som vi bruker på unit, modul og feature-testene. Det er noe som alle burde begynne å bruke med en gang, dvs. bytte ut JUnit. Det gjør testene mye mer konsise og lett-leste.</p>
-<p>Geb brukes til frontend testing som en driver for WebDriver, dvs. det er et alternativ til Cucumber. Det blir brukt som et slags påbygg til Spock, som gjør det mulig å bruke mange av de kjekke mulighetene Spock gir ved frontend testing. Karma brukes til testing av javascript, hvor vi i tillegg til å kjøre det lokalt med PhantomJS kjører det i skyen på BrowserStack for å teste andre nettlesere.</p>
+<p>For de som ikke har brukt det, så er Spock et test rammeverk dvs et alternativ til JUnit. Anbefaler alle til å begynne å bruke det i stedet for JUnit. Det gjør testene mye mer konsise og lett-leste. Vi bruker det på unit, modul og feature-testene.</p>
+<p>Geb brukes til frontend testing som en driver for WebDriver, dvs. det er et alternativ til Cucumber. Det blir brukt som et slags påbygg til Spock, som gjør det mulig å bruke mange av de kjekke mulighetene Spock gir ved frontend testing. Karma brukes til testing av javascript, hvor vi i tillegg til å kjøre det lokalt med PhantomJS kjører det i skyen på BrowserStack for å teste andre nettlesere, dvs. for å sjekke at det ikke krasjer i IE.</p>
 <p>Vi har laget en liten test utility som kan starte opp Tomcat før testene kjører, aka embedded tomcat. Slik blir det enkelt å kjøre modul-tester fra IntelliJ.</p>
 <p>Alle modulene våre snakker over http med hverandre, så det er forholdsvis enkelt å mocke vekk modul-avhengigheter ved å kjøre opp en mock http server i testene. Vi har et par thrift-tjenester vi bruker, bl.a. Broadcast, så vi fikk fikset denne slik at den passet inn i test-oppsettet vårt.</p></aside>
 </section>
@@ -138,7 +141,7 @@ Det er trygt å gjøre større endringer som treffer flere moduler.</p></aside>
 <li>CodeNarc</li>
 <li>Jasper</li>
 <li>Gradle</li>
-</ul><aside class="notes"><p>Vi kjører også kodesjekker i bygget, og sjekker både prod og testkode med de samme reglene. Testkoden skal alltid holde like høy kvalitet som prod-koden! Vi tester også at JSPene kompilerer ok. Jeg har nevnt gradle her fordi den gjør det veldig mye enklere å jobbe med de 3 test-nivåene vi har.</p></aside>
+</ul><aside class="notes"><p>Vi kjører også kodesjekker i bygget, og sjekker både prod og testkode med de samme reglene. Testkoden skal alltid holde like høy kvalitet som prod-koden! Vi tester også at JSPene kompilerer ok. Disse sjekkene gjør det også tryggere å ikke ha PR. Jeg har nevnt gradle her fordi den gjør det veldig mye enklere å få til testingen vi gjør.</p></aside>
 </section>
 
 <section id="geb-spock" class="slide" data-has-notes="true">
@@ -167,14 +170,12 @@ Det er trygt å gjøre større endringer som treffer flere moduler.</p></aside>
 <span class="hljs-keyword">def</span> client
 
 <span class="hljs-keyword">def</span> setupSpec() {
-  System.setProperty(<span class="hljs-string">"travel-flight-api.port"</span>, &lt;random port&gt;)
   tomcat.start()
   client = <span class="hljs-keyword">new</span> RESTClient(<span class="hljs-string">"http://localhost:${tomcat.port}"</span>)
 }
 
 <span class="hljs-keyword">def</span> cleanupSpec() {
   tomcat.stop()
-  System.clearProperty(<span class="hljs-string">"travel-flight-api.port"</span>)
 }
 </code></pre><aside class="notes"><p>Her er et eksempel på bruk av test utilitien for å kjøre opp Tomcat i en Spock test og stoppe den når testen er ferdig.</p></aside>
 </section>
@@ -214,11 +215,11 @@ Det er trygt å gjøre større endringer som treffer flere moduler.</p></aside>
     deleteTempIniFileIfExists();
     broadcastServer.stop();
   }
-</code></pre><aside class="notes"><p>Dette er en test utility for å stubbe ut kall til broadcast-serveren. Dvs. at denne kjøres opp for testen ... kjøres</p></aside>
+</code></pre><aside class="notes"><p>Dette er en test utility for å stubbe ut kall til broadcast-serveren. Dvs. at denne kjøres opp før testene. I andre tester der vi ikke tester at broadcast fungerer, slår vi den av med en config-fil.</p></aside>
 </section>
 
 <section id="work-with-us" class="slide" data-has-notes="true">
-<h2>Come work with us!</h2><aside class="notes"><p>Hvis det nå er noen som vil lære mer om hvordan vi gjør testing, er det bare å spørre nærmeste sjef om å få lov til å hospitere hos oss!</p></aside>
+<h2>Come work with us!</h2><aside class="notes"><p>For de som vil lære mer om hvordan vi gjør testing, er det bare å spørre nærmeste sjef om å få lov til å hospitere hos oss!</p></aside>
 </section></div>
     </div>
 
